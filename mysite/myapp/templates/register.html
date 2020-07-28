@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>register</title>
+  </head>
+    <body>
+      <p>Fill up the details to log in</p>
+        <form  method = "post">
+          {% csrf_token %}
+            <!-- {{form.as_p}} -->
+            {% for field in form %}
+              {{ field.label_tag }}</br>
+              {{ field }}</br>
+              <a>{{field.help_text}}</a>
+              {% for i in field.errors %}</br>
+                <small style="color:red">{{i}}</small>
+              {% endfor %}
+            {% endfor %}</br>
+            <button type = "submit"> Create Account </button>
+        </form>
+        already have account? <a href = "/login"> Login </a> then.
+    <body>
+</HTML>

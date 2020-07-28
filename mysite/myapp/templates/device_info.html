@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Devices</title>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+  </head>
+    <body>
+        <p hidden>{{ d.device_id }}</p>
+        <a>{{ d.device_name }}</a></br>
+        <a>{{ d.device_info }}</a><br>
+        <a>{{ d.device_price }}</a><br>
+        <img src="{{d.im.url}}" width="100" height="100">
+      <form method = "post">
+        {% csrf_token %}
+        <button id='add'>Add to cart</button>
+        <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
+      </form>
+<!-- <script>
+      document.addEventListener("DOMContentLoaded",function(){
+        document.querySelector("#add").onclick = function(){
+
+          const request = new XMLHttpRequest();
+          const device_id = "{{d.pk}}"
+          console.log(device_id);
+
+          request.open("POST",`/your-cart/${device_id}/`);
+
+          request.onload = function(){
+
+            // const data = JSON.parse(request.responseText);
+
+
+              alert("successfully added to cart");
+
+          }
+          const data = new FormData();
+          data.append("device_id",device_id);
+          data.append("csrfmiddlewaretoken","{{csrf_token}}");
+
+
+          request.send(data);
+          return false;
+      };
+      });
+      </script> -->
+      </body>
+</HTML>

@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Devices</title>
+  </head>
+    <body>
+      {% for d in devices %}
+        <a href="{% url 'device_view' d.pk %}"> {{ d.device_name }}</a></br>
+        <!-- <a>{{ d.device_name }}</a></br> -->
+        <!-- <a>{{ d.device_info }}</a><br>
+        <a>{{ d.device_price }}</a><br> -->
+        {% endfor %}
+      <form>
+        <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
+    </form>
+    <body>
+</HTML>

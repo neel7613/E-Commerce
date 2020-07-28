@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>login</title>
+  </head>
+    <body>
+      <p>
+        WELCOME {{ username }}
+        you have successfully loged in !
+
+      </p>
+      {% for cat in categories %}
+        <a href="{% url 'single_slug' cat.category_slug %}"> {{ cat.device_category }}</a></br>
+        <!-- <a>{{ cat.device_category }}</a></br> -->
+        <!-- <a>{{ cat.device_size }}</a><br> -->
+        {% endfor %}
+      <form>
+        <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
+    </form>
+    <body>
+</HTML>

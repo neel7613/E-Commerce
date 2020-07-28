@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>login</title>
+  </head>
+    <body>
+      <p>Fill up the details to log in</p>
+        <form  method = "post">
+          {% csrf_token %}
+            <!-- {{form.as_p}} -->
+
+            {% for field in form %}
+              {{ field.label_tag }}</br>
+              {{ field }}
+              <small>{{field.help_text}}</small></br>
+              <!-- {% for i in field.errors %}
+                <small style="color:red">{{i}}</small></br>
+              {% endfor %}</br> -->
+            {% endfor %}
+            {% for message in messages %}
+
+                  <div class="alert alert-success">
+                      <a class="close" data-dismiss="alert">*</a>
+
+                    <small style="color:red" > {{ message }} </small>
+
+                  </div>
+          {% endfor %}
+            <button type = "submit">Login </button>
+        </form>
+
+    <body>
+</HTML>
