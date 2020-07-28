@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'mydb',
 #         'USER': 'postgres',
-#         'PASSWORD': 'bhavya3110',
+#         'PASSWORD': ,
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
@@ -141,4 +141,4 @@ EMAIL_HOST_PASSWORD = os.environ.get('api_key')
 EMAIL_HOST='smtp.sendgrid.net'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-DEFAULT_FROM_USER = "2018csbha052@ldce.ac.in"
+DEFAULT_FROM_USER = ""
