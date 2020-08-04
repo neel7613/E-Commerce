@@ -69,7 +69,8 @@ def logged_in(request,user_id):
         # username = user.username
             return render(request,"logged_in.html",context)
 def homepage(request):
-
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('logged_in',args=(request.user.pk,)))
     return render(request,"homepage.html")
 def log_in(request):
     if request.method == "POST":
