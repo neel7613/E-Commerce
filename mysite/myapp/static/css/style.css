@@ -1,0 +1,25 @@
+.top {
+    background-color: #e9ecef;
+}
+
+#login-list{
+    list-style-type: none;
+    margin-right: 0;
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 0rem;
+}
+
+.list-button{
+    float: right;
+    margin-right: 5px;
+}
+
+.card-row{
+    padding-top: 7px; 
+}
+
+.cust-footer{
+    background-color: black;
+    text: white;
+}
