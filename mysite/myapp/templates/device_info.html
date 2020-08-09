@@ -10,11 +10,12 @@
         <a>{{ d.device_info }}</a><br>
         <a>{{ d.device_price }}</a><br>
         <img src="{{d.im.url}}" width="100" height="100">
-      <form method = "post">
+        <a href="{% url 'add_to_cart' d.pk %}">Add to cart</a>
+      <!-- <form method = "post">
         {% csrf_token %}
         <button id='add'>Add to cart</button>
         <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
-      </form>
+      </form> -->
 <!-- <script>
       document.addEventListener("DOMContentLoaded",function(){
         document.querySelector("#add").onclick = function(){

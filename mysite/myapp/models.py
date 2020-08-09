@@ -12,7 +12,7 @@ class Category(models.Model):
     device_category = models.CharField(max_length = 200)                            # laptop,mobile,tab,ipad,PC
     device_size = models.CharField(max_length=10 , choices = machine_size_choices) # mobile-small,tab-medium,laptop-large
     category_slug = models.SlugField(unique=True)                  # this-is-mobile-collection
-
+ # Category.objects.bulk_create([Category(device_category="Grinder",category_slug="Grinder-machines"),Category(device_category="Screw driver",category_slug="ScrewDriver-machines"),Category(device_category="Drill",category_slug="Drill-machines"),Category(device_category="Blower",category_slug="Blower-machines")])
 
     class Meta:
         verbose_name_plural = "Categories"

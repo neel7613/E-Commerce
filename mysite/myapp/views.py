@@ -7,6 +7,8 @@ from django.contrib import messages
 from .forms import *
 from .models import Category,Device,Cart
 from django.core.mail import send_mail,EmailMessage
+from django.db.models import  Q
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def register(request):
@@ -71,7 +73,17 @@ def logged_in(request,user_id):
 def homepage(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('logged_in',args=(request.user.pk,)))
-    return render(request,"homepage.html")
+
+
+    devices = Device.objects.all()
+    categories = Category.objects.all()
+    if 'search' in request.GET:
+        devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
+    context = {
+        "categories" : categories,
+        "devices" : devices
+    }
+    return render(request,"homepage.html",context)
 def log_in(request):
     if request.method == "POST":
         form = AuthenticationForm(request,request.POST)
@@ -116,41 +128,40 @@ def log_out(request):
     # return render(request,"homepage.html")
 
 
+def category_view(request,category_name):
+    category = Category.objects.get(device_category=category_name)
+    devices = Device.objects.filter(device_category__device_category=category.device_category)
+    context = {
+        "devices" : devices
+    }
+    return render(request,"category.html",context)
+
+
 def device_view(request,device_id):
+
     device = Device.objects.get(pk=device_id)
     device_id = device.pk
-    # context = {
-    #     "d" : device
-    # }
-    return HttpResponseRedirect(reverse("add_to_cart",args=(device_id,)))
-
-def add_to_cart(request,device_id):
-    if request.method == 'POST':
-        device = Device.objects.get(pk=device_id)
-        # id = int(request.POST['device_id'])
-        # device = Device.objects.get(pk=id)
-        cart = request.user.cart
-        user = request.user
-        cart.device.add(device)
-        # cart.add(device)
-        # cart = user.cart
-        # cart.device_name.add(device.device_name)
-        # cart.device_info.add(device.device_info)
-        # cart.device_price.add(device.device_price)
-        # user.cart.add(device)
-        # cart.save()
-        cart.save()
-        context = {
-            "device" : device,
-            "user" : user
-        }
-        # print(context["device"])
-        return render(request,"buy.html",context)
-    device = Device.objects.get(pk=device_id)
     context = {
         "d" : device
     }
-    return render(request,"device_info.html",context)
+    return render(request,'device_info.html',context)
+
+
+
+# @login_required
+def add_to_cart(request,device_id):
+
+    if request.user.is_authenticated:
+        device = Device.objects.get(pk=device_id)
+        cart = request.user.cart
+        user = request.user
+        cart.device.add(device)
+        cart.save()
+        return HttpResponseRedirect(reverse('device_view',args=(device_id,)))
+    else :
+        return HttpResponseRedirect(reverse('log_in'))
+
+
 def buy(request,user_id):
     if request.method == 'POST':
         address = request.POST["address"]

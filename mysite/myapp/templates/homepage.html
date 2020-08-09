@@ -1,8 +1,10 @@
 {% load static %}
+{% static "img" as baseUrl %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -14,13 +16,13 @@
     <title>Homepage</title>
   </head>
   <body>
-    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">E-commerce</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
-    
+
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -33,12 +35,15 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Categories
             </a>
+
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              {% for category in categories %}
+              <a class="dropdown-item" href="{% url 'category_view' category.device_category %}">{{ category.device_category }}</a>
+              {% endfor %}
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Something else here</a>
+
             </div>
+
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">About us</a>
@@ -48,7 +53,7 @@
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
       </div>
@@ -66,20 +71,23 @@
       <h1>Welcome to vijtech enterprise</h1>
       <p>Every industrial items under one roof</p>
     </div>
-    
+
+
     <div class="container">
       <div class="row card-row">
+        {% for device in devices %}
         <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
+            <img src={{ device.im.url }} class="card-img-top" alt={{ device.device_name }}>
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
+              <h5 class="card-title">{{ device.device_name}}</h5>
+              <p class="card-text">{{ device.device_info }}</p>
+              <a href= "{% url 'device_view' device.pk %}" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
         </div>
-        <div class="col-sm-4">
+        {% endfor %}
+            <!-- <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
@@ -130,10 +138,10 @@
               <a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
-    
+
 
     <footer class="footer mt-auto py-3 cust-footer">
       <div class="container">

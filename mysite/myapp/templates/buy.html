@@ -4,23 +4,18 @@
     <title>buying details</title>
   </head>
     <body>
-      <p> Here is the item info you are buying </p>
-      <!-- {% for d in devices %} -->
-        <!-- <a href="{% url 'device_view' d.pk %}"> {{ d.device_name }}</a></br> -->
-        <a>{{ device.device_name }}</a></br>
-        <a>{{ device.device_info }}</a><br>
-        <a>{{ device.device_price }}</a><br>
-        <!-- {% endfor %} -->
+      <p> Here is the item info you are buying {{device}} </p>
+      <a>{{ device.device_name }}</a></br>
+      <a>{{ device.device_info }}</a><br>
+      <a>{{ device.device_price }}</a><br>
+
         <form action = "{% url 'buy' user.id  %}" method = "post">
         {% csrf_token %}
           <input name = "address" placeholder="address" type = text>
-        <!-- <div>  <input name = "password" placeholder="password" type = password> </div> -->
         <input type = submit value = place-order >
 
 
       </form>
-        <!-- <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p> -->
-
     <body>
 </HTML>
 <!-- I have experience in developing web apps with django and flask web framework since 6+ months. -->
