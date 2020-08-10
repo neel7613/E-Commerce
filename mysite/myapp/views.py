@@ -41,13 +41,13 @@ def single_slug(request,single_slug):
 
 
         # categories =  list(Category.objects.all().values_list('device_category',flat=True))
-        cat = Category.objects.get(category_slug=single_slug)
-        device = cat.device_set.all()
-        context = {
-            "devices" : device
-        }
+    cat = Category.objects.get(category_slug = single_slug)
+    device = cat.device_set.all()
+    context = {
+        "devices" : device
+    }
 
-        return render(request,"devices.html",context)
+    return render(request,"devices.html",context)
 
         # if single_slug in categories:
         #
@@ -59,21 +59,22 @@ def single_slug(request,single_slug):
 def logged_in(request,user_id):
 
     # username = None
-        if request.user.is_authenticated:
-            username = request.user.email
-            context = {
-                "username" : username,
-                "categories" : Category.objects.all()
-            }
-            # print( Device.objects.value_list("device_info",flat=True))
-
-        # user = User.objects.all(pk=user_id)
-        # username = user.username
-            return render(request,"logged_in.html",context)
-def homepage(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('logged_in',args=(request.user.pk,)))
+        username = request.user.email
+        context = {
+            "username" : username,
+            "categories" : Category.objects.all()
+        }
+        # print( Device.objects.value_list("device_info",flat=True))
 
+    # user = User.objects.all(pk=user_id)
+    # username = user.username
+        return render(request,"logged_in.html",context)
+def homepage(request):
+    user = False
+    if request.user.is_authenticated:
+        # return HttpResponseRedirect(reverse('logged_in',args=(request.user.pk,)))
+        user = request.user
 
     devices = Device.objects.all()
     categories = Category.objects.all()
@@ -81,7 +82,8 @@ def homepage(request):
         devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
     context = {
         "categories" : categories,
-        "devices" : devices
+        "devices" : devices,
+        "user" : user
     }
     return render(request,"homepage.html",context)
 def log_in(request):
@@ -190,3 +192,14 @@ def buy(request,user_id):
             print(e)
         # send_mail("about order","order accepted","2018csbha052@ldce.ac.in",[mail])
         return HttpResponse("your order is placed and mail is sent to provided mail address")
+
+
+def view_cart(request):
+    if request.user.is_authenticated:
+        cart = request.user.cart
+        devices = cart.device.all()
+        # print(devices)
+        context = {
+            "devices" : devices
+        }
+    return render(request,"carts.html",context)

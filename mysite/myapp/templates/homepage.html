@@ -3,12 +3,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<<<<<<< HEAD
     <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
-=======
-    <link rel="stylesheet" href="../static/css/style.css">
->>>>>>> e115711a6348a6d15c11e767bc7816469ac393b0
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -20,11 +16,7 @@
     <title>Homepage</title>
   </head>
   <body>
-<<<<<<< HEAD
 
-=======
-    <!-- navbar  -->
->>>>>>> e115711a6348a6d15c11e767bc7816469ac393b0
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">E-commerce</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="homepage.html">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gallery</a>
@@ -61,31 +53,26 @@
           </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-<<<<<<< HEAD
           <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-=======
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 85%;">
-          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="margin: 5px;">
-            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-          </svg>
->>>>>>> e115711a6348a6d15c11e767bc7816469ac393b0
         </form>
       </div>
     </nav>
 
-    <!-- login/signup  -->
 
     <div class="top">
       <ul id="login-list">
+        {% if user.is_authenticated %}
+        <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_out' %}" role="button">Logout</a></li>
+        <li <b> {{ user.full_name }} </b></li>
+        {% else %}
         <li class="list-button"><a class="btn btn-primary button1" href="{% url 'register' %}" role="button">Sign up</a></li>
         <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_in' %}" role="button">Login</a></li>
+
+        {% endif %}
       </ul>
     </div>
 
-    <!-- main area  -->
-    
     <div class="jumbotron text-center">
       <h1>Welcome to vijtech enterprise</h1>
       <p>Every industrial items under one roof</p>
@@ -94,16 +81,10 @@
 
     <div class="container">
       <div class="row card-row">
-<<<<<<< HEAD
         {% for device in devices %}
         <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
             <img src={{ device.im.url }} class="card-img-top" alt={{ device.device_name }}>
-=======
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
-            <img src="..." class="card-img-top" alt="...">
->>>>>>> e115711a6348a6d15c11e767bc7816469ac393b0
             <div class="card-body">
               <h5 class="card-title">{{ device.device_name}}</h5>
               <p class="card-text">{{ device.device_info }}</p>
@@ -111,14 +92,9 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
         {% endfor %}
             <!-- <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
-=======
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
->>>>>>> e115711a6348a6d15c11e767bc7816469ac393b0
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -127,8 +103,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -137,10 +113,10 @@
             </div>
           </div>
         </div>
-      
-      
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
+      </div>
+      <div class="row card-row">
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -149,8 +125,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
@@ -159,8 +135,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4 col-sm-6">
-          <div class="card" style="width: 100%;">
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Card title</h5>
