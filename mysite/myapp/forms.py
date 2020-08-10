@@ -4,11 +4,13 @@ from .models import ExtendedUser
 
 
 class NewUserForm(UserCreationForm):
+    
+    address = forms.CharField(max_length=1000)
+    phone_no = forms.IntegerField(min_value=5999999999, max_value=9999999999)
 
     class Meta:
         model = ExtendedUser
-
-        fields = ("email","full_name","password1","password2")
+        fields = ("email","full_name", "password1","password2")
 
 
     def save(self,commit = True):
