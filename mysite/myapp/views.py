@@ -149,6 +149,14 @@ def device_view(request,device_id):
     return render(request,'device_info.html',context)
 
 
+def about_us(request):
+    return render(request,'aboutus.html')
+
+
+def contact_us(request):
+    return render(request,'contactus.html')
+
+
 
 # @login_required
 def add_to_cart(request,device_id):
