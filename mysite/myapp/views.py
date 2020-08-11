@@ -100,7 +100,7 @@ def log_in(request):
                 context = {
                     "username" : username
                 }
-                return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)))
+                return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)),context)
 
 
 

@@ -17,7 +17,7 @@
   </head>
   <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
       <a class="navbar-brand" href="#">E-commerce</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gallery</a>
@@ -64,7 +64,7 @@
       <ul id="login-list">
         {% if user.is_authenticated %}
         <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_out' %}" role="button">Logout</a></li>
-        <li <b> {{ user.full_name }} </b></li>
+        <li> <b> {{ user.full_name }} </b></li>
         {% else %}
         <li class="list-button"><a class="btn btn-primary button1" href="{% url 'register' %}" role="button">Sign up</a></li>
         <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_in' %}" role="button">Login</a></li>
@@ -84,7 +84,7 @@
         {% for device in devices %}
         <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
-            <img src={{ device.im.url }} class="card-img-top" alt={{ device.device_name }}>
+            <img src="{{ device.im.url }}" class="card-img-top" alt="{{ device.device_name }}">
             <div class="card-body">
               <h5 class="card-title">{{ device.device_name}}</h5>
               <p class="card-text">{{ device.device_info }}</p>
