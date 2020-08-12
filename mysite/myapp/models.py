@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db.models.signals import post_save
-
+from django.urls import reverse
 # Create your models here.
 machine_size_choices = (
 ("1","small"),
@@ -12,7 +12,6 @@ class Category(models.Model):
     device_category = models.CharField(max_length = 200)                            # laptop,mobile,tab,ipad,PC
     device_size = models.CharField(max_length=10 , choices = machine_size_choices) # mobile-small,tab-medium,laptop-large
     category_slug = models.SlugField(unique=True)                  # this-is-mobile-collection
- # Category.objects.bulk_create([Category(device_category="Grinder",category_slug="Grinder-machines"),Category(device_category="Screw driver",category_slug="ScrewDriver-machines"),Category(device_category="Drill",category_slug="Drill-machines"),Category(device_category="Blower",category_slug="Blower-machines")])
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -23,9 +22,10 @@ class Category(models.Model):
 class Device(models.Model):
     device_category = models.ForeignKey(Category,max_length = 200,default =1,verbose_name = "Category",on_delete = models.SET_DEFAULT)                             #
     device_name = models.CharField(max_length = 100)
-    device_info = models.TextField()
+    device_info = models.TextField(help_text='Device information')
     device_price = models.CharField(max_length = 100)
-    im = models.ImageField(upload_to="dev_im/",null=True,blank=True)
+    im = models.ImageField(default = "default.jpeg",upload_to="dev_im/",null=True,blank=True)
+    count = models.PositiveIntegerField(null=True,blank=True)
     # device_slug = models.SlugField()
 
 
@@ -35,6 +35,8 @@ class Device(models.Model):
     def __str__(self):
         return self.device_name
 
+    def get_absolute_url(self):
+        return reverse('post-detail', kwargs={'pk':self.pk})
 
 class Manager(BaseUserManager):
     def create_user(self,email,password,**extra):

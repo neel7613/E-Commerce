@@ -26,22 +26,19 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-STATICFILES_DIRS = [
-    'E-Commerce\mysite\myapp\static'
-]
+# STATICFILES_DIRS = [
+#     'E-Commerce\mysite\myapp\static'
+# ]
 
-MEDIA_URL ='/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'dev_im')
- 
 ALLOWED_HOSTS = []
 
 
 # Application definition
 
 INSTALLED_APPS = [
-
+    'adminsite.apps.AdminsiteConfig',
     'myapp.apps.MyappConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -142,6 +139,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-filess/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

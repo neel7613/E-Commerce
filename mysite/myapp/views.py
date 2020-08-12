@@ -25,7 +25,7 @@ def register(request):
                 "categories" : categories,
                 "usesrname"  : username
             }
-            return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)),context)
+            return HttpResponseRedirect(reverse('homepage'))
         else :
             context = {
                     "form" : form
@@ -100,6 +100,9 @@ def log_in(request):
                 context = {
                     "username" : username
                 }
+                if user.is_superuser:
+                    return HttpResponseRedirect(reverse('blog-home'))
+
                 return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)),context)
 
 

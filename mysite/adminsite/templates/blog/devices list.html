@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Devices</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+  </head>
+    <body>
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand btn btn-info" href="{% url 'post-create' %}">Add device</a>
+        <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+      </nav>
+      <div class="row">
+        {% for d in devices %}
+        <div class="card col-4">
+          {% if d.im.url is not None %}
+            <img class="card-img-top" src="{{d.im.url}}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ d.device_name }}</h5>
+            <p class="card-text">{{d.device_info}}</p>
+            {% if d.count %}
+            <a> {{ d.count }} available </a>
+            {% else %}
+            <a> Out of stoke </a>
+            {% endif %}
+
+            <a href="{% url 'post-detail' d.id %}" class="btn btn-primary">Device's detail</a>
+          </div>
+        </div>
+  				{% endfor %}
+      </div>
+
+      <!-- <form method = "post">
+        {% csrf_token %}
+        <button id='add'>Add to cart</button>
+        <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
+      </form> -->
+<!-- <script>
+      document.addEventListener("DOMContentLoaded",function(){
+        document.querySelector("#add").onclick = function(){
+
+          const request = new XMLHttpRequest();
+          const device_id = "{{d.pk}}"
+          console.log(device_id);
+
+          request.open("POST",`/your-cart/${device_id}/`);
+
+          request.onload = function(){
+
+            // const data = JSON.parse(request.responseText);
+
+
+              alert("successfully added to cart");
+
+          }
+          const data = new FormData();
+          data.append("device_id",device_id);
+          data.append("csrfmiddlewaretoken","{{csrf_token}}");
+
+
+          request.send(data);
+          return false;
+      };
+      });
+      </script> -->
+      </body>
+</HTML>
