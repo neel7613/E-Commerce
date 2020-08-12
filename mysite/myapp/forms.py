@@ -8,7 +8,7 @@ class NewUserForm(UserCreationForm):
     class Meta:
         model = ExtendedUser
 
-        fields = ("email","full_name","password1","password2")
+        fields = ("full_name","email","password1","password2")
 
 
     def save(self,commit = True):

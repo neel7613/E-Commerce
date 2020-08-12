@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Device,ExtendedUser,Cart
+from .models import Category,Device,ExtendedUser,Cart,Heavy_machine
 # Register your models here.
 from .forms import NewUserForm,MyUserChangeForm
 from django.contrib.auth.admin import UserAdmin
@@ -9,6 +9,7 @@ from django.contrib.auth.admin import UserAdmin
 admin.site.register(Category)
 admin.site.register(Device)
 admin.site.register(Cart)
+admin.site.register(Heavy_machine)
 
 class MyUserAdmin(UserAdmin):
 

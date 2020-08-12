@@ -88,3 +88,13 @@ post_save.connect(create_cart,sender=ExtendedUser)
 #         Cart.objects.save(user = instance)
 
 # post_save.connect(update_cart,sender=ExtendedUser)
+
+class Heavy_machine(models.Model):
+    chassis = models.CharField(max_length = 300)
+    batch_capacity = models.CharField(max_length = 300)
+    power = models.CharField(max_length = 300)
+    mixing_drum = models.CharField(max_length = 300)
+    image = models.ImageField(default = "default.jpeg",upload_to="machine/",null=True,blank=True)
+
+    class Meta:
+        verbose_name_plural = "Heavy Machines"
