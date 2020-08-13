@@ -5,7 +5,7 @@ from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
 from django.contrib.auth import login,logout,authenticate
 from django.contrib import messages
 from .forms import *
-from .models import Category,Device,Cart
+from .models import Category,Device,Cart,Heavy_machine
 from django.core.mail import send_mail,EmailMessage
 from django.db.models import  Q
 from django.contrib.auth.decorators import login_required
@@ -31,6 +31,7 @@ def register(request):
                     "form" : form
             }
             return render(request,"register.html",context)
+    
     form = NewUserForm()
     context = {
             "form" : form
@@ -103,7 +104,7 @@ def log_in(request):
                 if user.is_superuser:
                     return HttpResponseRedirect(reverse('blog-home'))
 
-                return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)),context)
+                return HttpResponseRedirect(reverse('logged_in',args=(user.pk,)))
 
 
 
@@ -150,6 +151,13 @@ def device_view(request,device_id):
         "d" : device
     }
     return render(request,'device_info.html',context)
+
+def rangoli(request):
+    machine = Heavy_machine.objects.all()
+    context = {
+        "machine" : machine
+    }
+    return render(request, 'rangoli.html', context) 
 
 
 def about_us(request):
