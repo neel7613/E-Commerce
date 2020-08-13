@@ -90,11 +90,18 @@ post_save.connect(create_cart,sender=ExtendedUser)
 # post_save.connect(update_cart,sender=ExtendedUser)
 
 class Heavy_machine(models.Model):
+    machine_name = models.CharField(max_length = 100 , default=None)
     chassis = models.CharField(max_length = 300)
     batch_capacity = models.CharField(max_length = 300)
     power = models.CharField(max_length = 300)
-    mixing_drum = models.CharField(max_length = 300)
+    mixing_drum = models.CharField(max_length = 300, null=True,blank=True)
+    speed = models.CharField(max_length = 300, null=True,blank=True)
+    drive = models.CharField(max_length = 300, null=True,blank=True)
+    wire_rope = models.CharField(max_length = 300, null=True,blank=True)
     image = models.ImageField(default = "default.jpeg",upload_to="machine/",null=True,blank=True)
 
     class Meta:
         verbose_name_plural = "Heavy Machines"
+
+    def __str__(self):
+        return self.machine_name

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>About Us</title>
+    <title>Rangoli</title>
     <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
 
@@ -58,24 +58,37 @@
         <p>All types of Construction Solution Under One roof.</p>
       </div>
       <div class="container">
-          <div class="row">
-              <div class="col-sm-6">
-                  <h2>Our Promies:</h2>
-                  <p>Lorem, ipsum dolor.</p>
-                  <p>Lorem, ipsum dolor.</p>
-                  <p>Lorem, ipsum dolor.</p>
-                  <p>Lorem, ipsum dolor.</p>
-                  <p>Lorem, ipsum dolor.</p>
+        {% for m in machine %}
+
+        <div class="card mb-3" style="max-width: 1040px;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="{{m.image.url}}" class="card-img" alt="{{m.machine_name}}">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">{{m.machine_name}}</h5>
+                <h6>Specification</h6>
+                <p><strong>Chassis  :</strong>{{m.chassis}}</p>
+                <p><strong>Batch Capacity  :</strong>{{m.batch_capacity}}</p>
+                <p><strong>Power  :</strong>{{m.power}}</p>
+                {% if m.mixing_drum %}
+                  <p><strong>Mixing Drum  :</strong>{{m.mixing_drum}}</p>
+                {% endif %}
+                {% if m.speed %}
+                  <p><strong>Speed  :</strong>{{m.speed}}</p>
+                {% endif %}
+                {% if m.drive %}
+                  <p><strong>Drive  :</strong>{{m.drive}}</p>
+                {% endif %}
+                {% if m.wire_rope %}
+                  <p><strong>Wire Rope  :</strong>{{m.wire_rope}}</p>
+                {% endif %}
               </div>
-              <div class="col-sm-6">
-                <h2>Our Work</h2>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
-                <p>Lorem, ipsum dolor.</p>
             </div>
           </div>
+        </div>
+        {% endfor %}
       </div>
       <footer class="footer mt-auto py-3 cust-footer">
         <div class="container">
