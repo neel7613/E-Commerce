@@ -22,15 +22,22 @@ class PostListView(ListView):
     model = Device
     template_name = 'blog/devices list.html' # <app>/<model>_<viewType>.html
     context_object_name = 'devices'
-    # ordering = ['-date_posted']
-    def get(self,request,*args,**kwargs):
-        super().get(request,*args,**kwargs)
-        self.object_list = self.get_queryset()
-        context = self.get_context_data()
-        if 'search' in request.GET:
-            devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
-            context["devices"] = devices
-        return render(request,self.template_name,context)
+    
+    def test(self):
+            
+        if self.request.user.is_superuser:
+            def get(self,request,*args,**kwargs):
+                super().get(request,*args,**kwargs)
+                self.object_list = self.get_queryset()
+                context = self.get_context_data()
+                if 'search' in request.GET:
+                    devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
+                    context["devices"] = devices
+                return render(request,self.template_name,context)
+        
+        else:
+            messages.success(request, f'You are not authorized to make post')
+            return redirect('blog-homepage')
 
 class PostDetailView(DetailView):
     model = Device

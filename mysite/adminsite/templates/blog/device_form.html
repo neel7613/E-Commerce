@@ -1,18 +1,19 @@
 <!DOCTYPE HTML>
 {% load crispy_forms_tags %}
-<HTML>
-  <head>
-    <title>Device</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-  </head>
-	<body>
-			<form method="POST" class="m-5" enctype="multipart/form-data" style="width:50%">
-			{% csrf_token %}
-      {{form|crispy}}
-			
-
-				<button type="submit" class="btn btn-info">Post</button>
+	<HTML>
+  		<head>
+    		<title>Device</title>
+    		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+ 		</head>
+		<body>
+			{% if user.is_superuser %}
+			<div>
+				<form method="POST" class="m-5" enctype="multipart/form-data" style="width:50%">
+					{% csrf_token %}
+      				{{ form|crispy }}
+					<button type="submit" class="btn btn-info">Post</button>
+				</form>
+			</div>
+			{% endif %}
 		</body>
-		</form>
-	</div>
+	</HTML>
