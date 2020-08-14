@@ -98,8 +98,8 @@
               <p class="card-text">{{ device.device_info }}</p>
               <a href= "{% url 'device_view' device.pk %}" class="btn btn-primary">Go somewhere</a>
               {% if user.is_superuser %}
-                  <a href= "{% url 'device_view' device.pk %}" class="btn btn-primary">Delete</a>
-                  <a href= "{% url 'device_view' device.pk %}" class="btn btn-primary">Update</a>
+                  <a href= "{% url 'post-delete' device.pk %}" class="btn btn-primary">Delete</a>
+                  <a href= "{% url 'post-update' device.pk %}" class="btn btn-primary">Update</a>
               {% endif %}
             </div>
           </div>

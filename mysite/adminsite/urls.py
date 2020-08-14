@@ -26,6 +26,7 @@ urlpatterns = [
     path('heavymachine/<int:pk>', HeavyMachineDetailView.as_view(), name="HeavyMachine-detail"),
     path('heavymachine/<int:pk>/update/', HeavyMachineUpdateView.as_view(), name="HeavyMachine-update"),
     path('heavymachine/<int:pk>/delete/', HeavyMachineDeleteView.as_view(), name="HeavyMachine-delete"),
-    path('category/create', CategoryListView.as_view(), name="Category-create"),
+    path('category/create', CategoryCreateView.as_view(), name="Category-create"),
+    path('category/list', CategoryListView.as_view(), name="Category-list"),
     # path('about/', views.about, name="blog-about")
 ]

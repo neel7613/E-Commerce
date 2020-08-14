@@ -12,7 +12,8 @@
         {% if object.im.url is not None %}
         <img src="{{ object.im.url }}" width="100" height="100"></br>
         {% endif %}
-        <a href = "{% url 'post-update' object.id %}">edit</a>
-        <a href = "{% url 'post-delete' object.id %}">delete</a>
+        <a href = "{% url 'post-update' object.id %}">edit</a><br>
+        <a href = "{% url 'post-delete' object.id %}">delete</a><br>
+        <a href = "{% url 'homepage' %}">Home</a><br>
       </body>
 </HTML>
