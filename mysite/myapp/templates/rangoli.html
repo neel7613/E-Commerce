@@ -35,11 +35,16 @@
               Categories
               </a>
   
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for category in categories %}
-                <a class="dropdown-item" href="{% url 'category_view' category.device_category %}">{{ category.device_category }}</a>
-                {% endfor %}
-                <div class="dropdown-divider"></div>
+              
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+              <a class="dropdown-item" href="{% url 'category_view' category.device_category %}">{{ category.device_category }}</a>
+              {% endfor %}
+              {% if user.is_superuser %}
+                <a class="dropdown-item" href="{% url 'Category-create' %}">Add Category</a>
+              {% endif %}
+
+              <div class="dropdown-divider"></div>
   
               </div>
   
@@ -83,6 +88,11 @@
                 {% endif %}
                 {% if m.wire_rope %}
                   <p><strong>Wire Rope  :</strong>{{m.wire_rope}}</p>
+                {% endif %}
+               <a href="{% url 'device_view' m.id %}">Go Somewhere</a><br>
+               {% if user.is_superuser %}
+                  <a href="{% url 'HeavyMachine-update' m.id %}">Update Post</a><br>
+                  <a href="{% url 'HeavyMachine-delete' m.id %}">Delete Post</a>
                 {% endif %}
               </div>
             </div>

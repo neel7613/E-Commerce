@@ -19,6 +19,9 @@ class Category(models.Model):
     def __str__(self):
         return self.device_category
 
+    def get_absolute_url(self):
+        return reverse('category-list')
+
 class Device(models.Model):
     device_category = models.ForeignKey(Category,max_length = 200,default =1,verbose_name = "Category",on_delete = models.SET_DEFAULT)                             #
     device_name = models.CharField(max_length = 100)
@@ -105,3 +108,6 @@ class Heavy_machine(models.Model):
 
     def __str__(self):
         return self.machine_name
+
+    def get_absolute_url(self):
+        return reverse('HeavyMachine-detail', kwargs={'pk':self.pk})

@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Device Delete</title>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+  </head>
+<body>
+	<div>
+		<form method="POST">
+			{% csrf_token %}
+
+
+                <h2>Are you sure you want to delete the post "{{ object.device_name }}" ?</h2>
+
+			<div>
+                <button type="submit">Delete</button>
+                <a href="{% url 'HeavyMachine-detail' object.id %}">Cancel</a>
+			</div>
+		</form>
+	</div>
+</body>
+</HTML>

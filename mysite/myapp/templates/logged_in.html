@@ -1,21 +1,164 @@
-<!DOCTYPE HTML>
-<HTML>
+{% load static %}
+{% static "img" as baseUrl %}
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>Logged in</title>
-  </head>
-    <body>
-      <p>
-        WELCOME {{ username }}
-        you have successfully loged in !
+    <link rel="stylesheet"  type="text/css" href="{% static 'css/style.css' %}">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous"> -->
 
-      </p>
-      {% for cat in categories %}
-        <a href="{% url 'single_slug' cat.category_slug %}"> {{ cat.device_category }}</a></br>
-        <!-- <a>{{ cat.device_category }}</a></br> -->
-        <!-- <a>{{ cat.device_size }}</a><br> -->
-      {% endfor %}
-      <form>
-        <p>if you want to logout click <a href = "{% url 'log_out' %}">here</a></p>
-    </form>
-    <body>
-</HTML>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+  </head>
+  <body>
+
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">E-commerce</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'rangoli' %}">Rangoli</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Categories
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for category in categories %}
+              <a class="dropdown-item" href="{% url 'category_view' category.device_category %}">{{ category.device_category }}</a>
+              {% endfor %}
+              <div class="dropdown-divider"></div>
+
+            </div>
+
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about_us' %}">About us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact_us' %}">Contact us</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" name="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
+
+
+    <div class="top">
+      <ul id="login-list">
+        {% if user.is_authenticated %}
+        <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_out' %}" role="button">Logout</a></li>
+            {% if user.is_superuser %}
+              <li class="list-button"><a class="btn btn-primary button2" href="{% url 'post-create' %}" role="button">Add Device</a></li>
+              <li class="list-button"><a class="btn btn-primary button2" href="{% url 'HeavyMachine-create' %}" role="button">Add HeavyMachine</a></li>
+            {% endif %}
+        <li> <b> {{ user.full_name }} </b></li>
+        {% else %}
+        <li class="list-button"><a class="btn btn-primary button1" href="{% url 'register' %}" role="button">Sign up</a></li>
+        <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_in' %}" role="button">Login</a></li>
+
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="jumbotron text-center">
+      <h1>Welcome to vijtech enterprise</h1>
+      <p>Every industrial items under one roof</p>
+    </div>
+
+
+    <div class="container">
+      <div class="row card-row">
+        {% for device in devices %}
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="{{ device.im.url }}" class="card-img-top" alt="{{ device.device_name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ device.device_name}}</h5>
+              <p class="card-text">{{ device.device_info }}</p>
+              <a href= "{% url 'device_view' device.pk %}" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+            <!-- <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row card-row">
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+
+
+    <footer class="footer mt-auto py-3 cust-footer">
+      <div class="container">
+        <span class="text-muted">copyright</span>
+      </div>
+    </footer>
+
+
+  </body>
+</html>
