@@ -89,7 +89,7 @@
                 {% if m.wire_rope %}
                   <p><strong>Wire Rope  :</strong>{{m.wire_rope}}</p>
                 {% endif %}
-               <a href="{% url 'device_view' m.id %}">Go Somewhere</a><br>
+               <!--<a href="{% url 'device_view' m.id %}">Go Somewhere</a><br>-->
                {% if user.is_superuser %}
                   <a href="{% url 'HeavyMachine-update' m.id %}">Update Post</a><br>
                   <a href="{% url 'HeavyMachine-delete' m.id %}">Delete Post</a>
