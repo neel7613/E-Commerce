@@ -14,7 +14,6 @@ urlpatterns = [
     path('login/',views.log_in,name = "log_in"),
     path('logout/',views.log_out,name = "log_out"),
     path('your-cart/',views.view_cart,name = "view_cart"),
-    path('category/<slug:single_slug>/',views.single_slug,name="single_slug"),
     path('device/<int:device_id>/',views.device_view,name="device_view"),
     path('category/<str:category_name>/',views.category_view,name="category_view"),
     path('add-to-cart/<int:device_id>/',views.add_to_cart,name = "add_to_cart"),
@@ -24,4 +23,6 @@ urlpatterns = [
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name= "password_reset_sent.html"), name="password_reset_done"),
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name= "password_reset_form.html"), name="password_reset_confirm"),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name= "password_reset_complete.html"), name="password_reset_complete"),
+    path('category/<slug:single_slug>/',views.single_slug,name="single_slug"),
+
 ]

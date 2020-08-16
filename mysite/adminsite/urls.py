@@ -1,19 +1,5 @@
 from django.urls import path
-from . import views
-from .views import (
-	PostListView, 
-	PostDetailView, 
-	PostCreateView, 
-	PostUpdateView, 
-	PostDeleteView,
-	HeavyMachineListView,
-	HeavyMachineCreateView,
-	HeavyMachineDetailView,
-	HeavyMachineDeleteView,
-	HeavyMachineUpdateView,
-	CategoryCreateView,
-	CategoryListView
-)
+from .views import *
 
 
 urlpatterns = [
@@ -26,7 +12,11 @@ urlpatterns = [
     path('heavymachine/<int:pk>', HeavyMachineDetailView.as_view(), name="HeavyMachine-detail"),
     path('heavymachine/<int:pk>/update/', HeavyMachineUpdateView.as_view(), name="HeavyMachine-update"),
     path('heavymachine/<int:pk>/delete/', HeavyMachineDeleteView.as_view(), name="HeavyMachine-delete"),
-    path('category/create', CategoryCreateView.as_view(), name="Category-create"),
-    path('category/list', CategoryListView.as_view(), name="Category-list"),
+    path('category/create', CategoryCreateView.as_view(), name="category-create"),
+	path('category/list',CategoryListView.as_view(),name="category-list"),
+    path('category/<int:pk>/', CategoryDetailView.as_view(), name="category-detail"),
+    path('category/<int:pk>/delete/', CategoryDeleteView.as_view(), name="category-delete"),
+
+
     # path('about/', views.about, name="blog-about")
 ]

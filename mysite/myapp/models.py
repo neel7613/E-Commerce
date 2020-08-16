@@ -20,7 +20,7 @@ class Category(models.Model):
         return self.device_category
 
     def get_absolute_url(self):
-        return reverse('Category-list')
+        return reverse('category-list')
 
 class Device(models.Model):
     device_category = models.ForeignKey(Category,max_length = 200,default =1,verbose_name = "Category",on_delete = models.SET_DEFAULT)                             #

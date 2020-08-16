@@ -40,9 +40,7 @@
               {% for category in categories %}
               <a class="dropdown-item" href="{% url 'category_view' category.device_category %}">{{ category.device_category }}</a>
               {% endfor %}
-              {% if user.is_superuser %}
-                <a class="dropdown-item" href="{% url 'Category-create' %}">Add Category</a>
-              {% endif %}
+            
 
               <div class="dropdown-divider"></div>
 
@@ -70,6 +68,7 @@
         <li class="list-button"><a class="btn btn-primary button2" href="{% url 'log_out' %}" role="button">Logout</a></li>
             {% if user.is_superuser %}
               <li class="list-button"><a class="btn btn-primary button2" href="{% url 'post-create' %}" role="button">Add Device</a></li>
+              <li class="list-button"><a class="btn btn-primary button2" href="{% url 'category-list' %}" role="button">view category list</a></li>
               <li class="list-button"><a class="btn btn-primary button2" href="{% url 'HeavyMachine-create' %}" role="button">Add HeavyMachine</a></li>
             {% endif %}
         <!--<li> <b> {{ user.full_name }} </b></li>-->

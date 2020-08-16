@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect,reverse
 from django.http import HttpResponse,HttpResponseRedirect
 from myapp.models import Device, Heavy_machine, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.db.models import  Q
+from django.db.models import Q
 from django.views.generic import(
     ListView,
     DetailView,
@@ -22,9 +22,9 @@ class PostListView(ListView):
     model = Device
     template_name = 'blog/devices list.html' # <app>/<model>_<viewType>.html
     context_object_name = 'devices'
-    
+
     def test(self):
-            
+
         if self.request.user.is_superuser:
             def get(self,request,*args,**kwargs):
                 super().get(request,*args,**kwargs)
@@ -34,7 +34,7 @@ class PostListView(ListView):
                     devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
                     context["devices"] = devices
                 return render(request,self.template_name,context)
-        
+
         else:
             messages.success(request, f'You are not authorized to make post')
             return redirect('blog-homepage')
@@ -72,7 +72,7 @@ class PostUpdateView(UpdateView):
 
 class PostDeleteView(DeleteView):
     model = Device
-    success_url = '/super'
+    success_url = '/category/list'
     template_name = 'blog/device_confirm_delete.html'
 
 
@@ -89,9 +89,9 @@ class HeavyMachineListView(ListView):
     model = Heavy_machine
     template_name = 'blog/HeavyMachine.html' # <app>/<model>_<viewType>.html
     context_object_name = 'HeavyDevices'
-    
+
     def test(self):
-            
+
         if self.request.user.is_superuser:
             def get(self,request,*args,**kwargs):
                 super().get(request,*args,**kwargs)
@@ -101,10 +101,10 @@ class HeavyMachineListView(ListView):
                 #    devices = Device.objects.filter(Q(device_name__icontains=request.GET['search']) | Q(device_category__device_category__icontains=request.GET['search']) | Q(device_info__icontains=request.GET['search']))
                 #    context["devices"] = devices
                 #return render(request,self.template_name,context)
-        
+
         else:
             messages.success(request, f'You are not authorized to make post')
-            return redirect('blog-homepage')
+            return redirect('homepage')
 
 class HeavyMachineCreateView(CreateView):
     model = Heavy_machine
@@ -131,22 +131,35 @@ class HeavyMachineDeleteView(DeleteView):
 class CategoryCreateView(CreateView):
     model = Category
     fields = ['device_category', 'device_size', 'category_slug']
-    template_name = 'blog/Category_form.html'
+    template_name = 'blog/category_form.html'
 
 
 class CategoryListView(ListView):
     model = Category
     template_name = 'blog/category_list.html' # <app>/<model>_<viewType>.html
     context_object_name = 'categories'
-    
+
     def test(self):
-            
+
         if self.request.user.is_superuser:
-            
+
             def get(self,request,*args,**kwargs):
-                
+
                 super().get(request,*args,**kwargs)
                 self.object_list = self.get_queryset()
                 context = self.get_context_data()
 
                 return render(request, self.template_name, context)
+class CategoryDetailView(DetailView):
+    model = Category
+    template_name = 'blog/category_detail.html'
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # context['now'] = timezone.now()
+        context['Device'] = Device.objects.filter(device_category = context['object'])
+        return context
+
+class CategoryDeleteView(DeleteView):
+    model = Category
+    success_url = '/category/list'
+    template_name = 'blog/category_confirm_delete.html'

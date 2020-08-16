@@ -8,16 +8,17 @@
     <body>
       <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand btn btn-info" href="{% url 'post-create' %}">Add device</a>
+        <a class="navbar-brand btn btn-info" href="{% url 'category-create' %}">Add category</a>
         <a class="navbar-brand btn btn-info" href="{% url 'HeavyMachine-create' %}">Add Heavy Machine</a>
         <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
       </nav>
       <div class="row">
         {% for c in categories %}
         <div class="card col-4">
-            <p>{{ c.device_category }}</p>
+            <a href="{% url 'category-detail' c.id %}" class="btn btn-primary">{{ c.device_category }}</a>
           </div>
   				{% endfor %}
       </div>

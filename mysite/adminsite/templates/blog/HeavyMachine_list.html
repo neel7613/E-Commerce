@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<HTML>
+  <head>
+    <title>Heavy Machines</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script> -->
+  </head>
+    <body>
+      <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand btn btn-info" href="{% url 'HeavyMachine-create' %}">Add heavy machine</a>
+        <!-- <a class="navbar-brand btn btn-info" href="{% url 'category-create' %}">Add category</a> -->
+        <!-- <a class="navbar-brand btn btn-info" href="{% url 'HeavyMachine-create' %}">Add Heavy Machine</a> -->
+        <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='search'>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+      </nav>
+      <div class="row">
+        {% for c in machine %}
+        <div class="card col-4">
+            <a href="{% url 'HeavyMachine-detail' c.id %}" class="btn btn-primary">{{ c.machine_name }}</a>
+          </div>
+  				{% endfor %}
+      </div>
+      </body>
+</HTML>
